@@ -59,7 +59,7 @@ FORCE_SUB_CHANNEL3 = int(os.environ.get("FORCE_SUB_CHANNEL3", "0"))
 FORCE_SUB_CHANNEL4 = int(os.environ.get("FORCE_SUB_CHANNEL4", "0"))
 
 #Shortner (token system) 
-TOKEN = os.environ.get("TOKEN", "verify_") 
+#TOKEN = os.environ.get("TOKEN", "verify_") 
 SHORTLINK_URL = os.environ.get("SHORTLINK_URL", "api.shareus.io") 
 SHORTLINK_API = os.environ.get("SHORTLINK_API", "PUIAQBIFrydvLhIzAOeGV8yZppu2")
 #VERIFY_EXPIRE = int(os.environ.get('VERIFY_EXPIRE', 86400)) # Add time in seconds
