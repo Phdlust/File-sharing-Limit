@@ -22,6 +22,7 @@ File Sharing Token Bot is a Telegram bot designed to store posts and documents, 
 ### ✨ Features
 
 - Store posts and documents.
+- Permanently link 
 - Access content via special links.
 - Easy to deploy and customize.
 - 1/2/3/4 Force subs
@@ -31,6 +32,7 @@ File Sharing Token Bot is a Telegram bot designed to store posts and documents, 
 - auto delete ( advanced )
 - set custom caption
 - easy to deploy
+- dynamic config setup
   
 
 ## 🛠️ Setup
