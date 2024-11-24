@@ -17,7 +17,6 @@ PREMIUM_CREDITS = {
     "Gold": int(os.environ.get("GOLD_CREDITS", 100)),  # Default is 200
 }
 
-
 AUTO_DELETE_DELAY = int(os.environ.get("AUTO_DELETE_DELAY", 600))# Auti delete time
 START_COMMAND_LIMIT = int(os.environ.get("START_COMMAND_LIMIT", 15))# Default limit for new users
 
