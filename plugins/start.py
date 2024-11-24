@@ -94,7 +94,8 @@ async def start_command(client: Client, message: Message):
             {"_id": user_id}, {"$set": {"previous_token": previous_token}}, upsert=True
         )
 
-
+    TOKEN = await get_token()
+	
     verification_link = f"https://t.me/{client.username}?start={TOKEN}{previous_token}"
     shortened_link = await get_shortlink(SHORTLINK_URL, SHORTLINK_API, verification_link)
 
@@ -378,5 +379,4 @@ Unsuccessful: <code>{unsuccessful}</code></b>"""
         msg = await message.reply(REPLY_ERROR)
         await asyncio.sleep(8)
         await msg.delete()
-
 
