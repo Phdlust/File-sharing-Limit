@@ -23,6 +23,29 @@ async def delete_message_after_delay(message: Message, delay: int):
     except Exception as e:
         logger.error(f"Failed to delete message: {e}")
 
+from datetime import datetime
+
+# Command to update the TOKEN
+@Client.on_message(filters.command("token") & filters.user(ADMINS))
+async def set_token(client, message):
+    if len(message.command) < 2:
+        await message.reply_text("Please provide the new token. Example: `/token new_token_prefix`")
+        return
+
+    # Get the new token from the command arguments
+    new_token = message.command[1]
+
+    # Update the token in MongoDB
+    await phdlust.update_one(
+        {"_id": "global_settings"},
+        {"$set": {"TOKEN": new_token, "updated_at": datetime.utcnow()}},
+        upsert=True,
+    )
+
+    await message.reply_text(f"✅ TOKEN updated to: `{new_token}`")
+
+
+
 async def generate_token_stats():
     try:
         # Fetching token statistics from the database
@@ -81,8 +104,8 @@ def is_admin(user_id):
     return user_id in ADMINS
 
 # Command to update variables using the /admin command
-@Client.on_message(filters.command("config") & filters.user(ADMINS))
-async def admin_command(client, message: Message):
+@Client.on_message(filters.command("noconfig") & filters.user(ADMINS))
+async def admin_command(client:Client, message: Message):
     # Extract the command and arguments
     command_args = message.text.split()
     
@@ -445,7 +468,6 @@ async def help_command(client: Client, message: Message):
 /stats - Check your bot uptime.
 /users - View bot statistics (Admins only).
 /broadcast - Broadcast any messages to bot users (Admins only).
-/addcredits credits - Add credits to your account (Admins only).
 /givecredits user_id credits - Give credits to a user (Admins only).
 /givepr user_id credits premium_status - Give premium status to a user (Admins only).
 /count - Show token usage statistics (Admins only).
@@ -453,6 +475,6 @@ async def help_command(client: Client, message: Message):
 /plans - Show available premium plans.
 /upi - Show UPI payment options.
 /admin - check or reset count.
+/token - changr token prefix
 """
     await message.reply(help_text, parse_mode=ParseMode.HTML)
-
