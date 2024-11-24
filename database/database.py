@@ -29,6 +29,27 @@ default_user = {
     "verified_time": 0
 }
 
+# Insert a document with "_id": "global_settings" if it doesn't already exist
+async def ensure_global_settings():
+    if not await phdlust.find_one({"_id": "global_settings"}):
+        await phdlust.insert_one({
+            "_id": "global_settings",
+            "TOKEN": "verify_"  # Default TOKEN value
+        })
+
+async def get_token():
+    """
+    Fetches the current TOKEN from the MongoDB database.
+    If not found, returns the default value 'verify_'.
+    """
+    global_settings = await phdlust.find_one({"_id": "global_settings"})
+    if not global_settings:
+        # Log the issue and return default TOKEN
+        print("Warning: 'global_settings' document not found in the database. Using default TOKEN.")
+        return "verify_"  # Default TOKEN
+    return global_settings.get("TOKEN", "verify_")
+
+
 async def log_verification(user_id):
 
     await verification_log_collection.insert_one({
